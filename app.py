@@ -1,6 +1,7 @@
 import games.currency_roulette_game as currency_roulette_game
 import games.guess_game as guess_game
 import games.memory_game as memory_game
+import score
 
 def welcome():
     while True:
@@ -28,12 +29,13 @@ guess it back.
         else:
             print("Please enter only one number from the list\n")
     if game_number == 1:
-        memory_game.play(difficulty)
+        result = memory_game.play(difficulty)
     elif game_number == 2:
-        guess_game.play(difficulty)
+        result = guess_game.play(difficulty)
     elif game_number == 3:
-        currency_roulette_game.play(difficulty)
-
+        result = currency_roulette_game.play(difficulty)
+    if result == True:
+        score.add_score(difficulty)
 
 
 

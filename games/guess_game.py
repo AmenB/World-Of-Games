@@ -1,5 +1,6 @@
 import random
-
+import utils
+import score
 
 def generate_number():
     return random.randint(0, 5)
@@ -24,6 +25,9 @@ def play(difficulty):
     result = compare_results(user_input, secret_number)
     if result is True:
         print("Your answer is correct")
+        return True
     else:
         print("Your answer is wrong")
+        return False
+
 

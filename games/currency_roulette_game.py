@@ -1,7 +1,8 @@
 import random
-
 import freecurrencyapi
 import requests
+import utils
+import score
 
 
 def get_money_interval(difficulty):
@@ -41,6 +42,11 @@ def play (difficulty):
     dollar, minimum, maximum = get_money_interval(difficulty)
     user_input = get_guess_from_user(dollar)
     result = compare_results(user_input,minimum,maximum)
-    print(result)
-
+    print(f"difficulty {difficulty}")
+    if result is True:
+        print("Your answer is correct")
+        return True
+    else:
+        print("Your answer is wrong")
+        return False
 

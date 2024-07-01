@@ -1,7 +1,8 @@
 import random
 import time
 import os
-
+import utils
+import score
 
 def generate_sequence(difficulty):
     random_list = []
@@ -9,7 +10,7 @@ def generate_sequence(difficulty):
         random_list.append(random.randint(1,101))
     print(random_list)
     time.sleep(0.7)
-    os.system('cls')
+    utils.Screen_cleaner()
     return random_list
 
 def get_list_from_user(difficulty):
@@ -33,5 +34,7 @@ def play(difficulty):
     result = is_list_equal(random_list, user_random_list)
     if result is True:
         print("Your answer is correct")
+        return True
     else:
         print("Your answer is wrong")
+        return False
