@@ -6,7 +6,7 @@ try:
     with open("scores.txt", 'r') as file:
         score = file.read()
 except Exception:
-    score = "Error"
+    score = "Error: 404"
 @app.route("/")
 def hello_world():
     return (f"""
@@ -22,21 +22,6 @@ def hello_world():
 
 
     """)
-
-@app.errorhandler(Exception)
-def handle_exception(e):
-    return (f"""
-    <html>
-        <head>
-            <title>Score Game - Error</title>
-        </head>
-        <body>
-            <h1>Error</h1>
-            <div id="score"> Error </div>
-        </body>
-    </html>
-    """),
-
 
 if __name__ == '__main__':
     app.run(port=5000)
