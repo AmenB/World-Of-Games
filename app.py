@@ -36,6 +36,8 @@ guess it back.
         result = currency_roulette_game.play(difficulty)
     if result == True:
         score.add_score(difficulty)
+    while input("Do you want to try again? press 'y' to continue or 'n' to leave: ") == "y":
+        start_play()
 
 
 
