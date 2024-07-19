@@ -35,9 +35,11 @@ guess it back.
     elif game_number == '3':
         result = currency_roulette_game.play(int(difficulty))
     if result == True:
-        score.add_score(difficulty)
+        score.add_score(int(difficulty))
     while input("Do you want to try again? press 'y' to continue or 'n' to leave: ") == "y":
         start_play()
+    else:
+        exit()
 
 
 
