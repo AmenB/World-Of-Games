@@ -10,4 +10,4 @@ services:
     ports:
       - "8777:5000"
     volumes:
-      -  C:\Users\Maste\PycharmProjects\wog\scores.txt:/scores.txt
+      - "C:/Users/Maste/PycharmProjects/wog/scores.txt:/scores.txt"
