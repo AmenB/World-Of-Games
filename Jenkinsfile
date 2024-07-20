@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        IMAGE_NAME = 'amenbrakat/main_core'
+        IMAGE_TAG = 'latest'
+    }
     stages {
         stage('Clean UP') {
             steps {
@@ -32,6 +35,14 @@ pipeline {
             steps {
                 dir('World-Of-Games') {
                     bat "docker-compose down"
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Login to Docker Hub and push the Docker image
+                    bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
