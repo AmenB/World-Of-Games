@@ -21,10 +21,10 @@ def test_scores_service():
 
 
 def main_function():
-    if test_scores_service() == True:
-        return sys.exit(0)
+    if test_scores_service():
+        sys.exit(0)
     else:
-        return sys.exit(-1)
+        sys.exit(-1)
 
 
 
