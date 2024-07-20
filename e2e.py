@@ -11,7 +11,7 @@ def test_scores_service():
     service = Service(ChromeDriverManager().install(), options=chrome_options)
     driver_chrome = webdriver.Chrome(service=service)
 
-    driver_chrome.get("http://127.0.0.1:5000/")
+    driver_chrome.get("http://127.0.0.1:8777/")
     score = driver_chrome.find_element(By.ID, "score")
     if int(score.text)>=0 or int(score.text)<=1000:
         return True
