@@ -10,4 +10,4 @@ services:
     ports:
       - "8777:5000"
     volumes:
-      - ${VOLUME_PATH}\score.txt:/scores.txt
+      - ${VOLUME_PATH}/score.txt:/scores.txt
