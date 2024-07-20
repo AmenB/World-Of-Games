@@ -1,3 +1,4 @@
+import sys
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import ChromiumOptions
 from selenium import webdriver
@@ -21,9 +22,9 @@ def test_scores_service():
 
 def main_function():
     if test_scores_service() == True:
-        return 0
+        return sys.exit(0)
     else:
-        return -1
+        return sys.exit(-1)
 
 
 
