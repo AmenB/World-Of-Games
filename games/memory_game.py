@@ -37,4 +37,4 @@ def play(difficulty):
         return True
     else:
         print("Your answer is wrong")
-        return Fals
+        return False
