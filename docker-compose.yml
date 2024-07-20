@@ -8,6 +8,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "8777:5000"
     volumes:
       - C:\Users\Maste\PycharmProjects\wog\scores.txt:/scores.txt
