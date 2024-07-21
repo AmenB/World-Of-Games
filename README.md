@@ -12,7 +12,6 @@ Welcome to the World of Games! This project offers three exciting games: Memory 
   - [Currency Roulette](#currency-roulette)
 - [Score](#score)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
