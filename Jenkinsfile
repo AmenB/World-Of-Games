@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = 'amenbrakat/main_core'
+        IMAGE_NAME = 'amenbrakat/main_score'
         IMAGE_TAG = 'latest'
     }
     stages {
