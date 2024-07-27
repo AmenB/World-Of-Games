@@ -15,6 +15,13 @@ pipeline {
                 bat "git clone https://github.com/AmenB/World-Of-Games.git"
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                dir('World-Of-Games') {
+                    bat "pip install -r requirements.txt"
+                }
+            }
+        }
         stage('Docker') {
             steps {
                 script {
