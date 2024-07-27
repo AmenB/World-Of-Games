@@ -1,3 +1,0 @@
-pip install webdriver-manager
-pip install flask
-pip install selenium
