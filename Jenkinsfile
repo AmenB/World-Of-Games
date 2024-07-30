@@ -75,7 +75,7 @@ pipeline {
                     def imageTag = "${env.BUILD_NUMBER}"
                     
                     // Tag and push the Docker image with the new build number
-                    bat "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME_TAG}:${imageTag}"
+                    bat "docker tag ${IMAGE_NAME}:${imageTag} ${IMAGE_NAME_TAG}:${imageTag}"
                     bat "docker push ${IMAGE_NAME_TAG}:${imageTag}"
                 }
             }
