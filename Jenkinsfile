@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+		IMAGE_DOCKER_NAME = 'main_score'
         IMAGE_NAME = 'amenbrakat/main_score'
         IMAGE_TAG = 'latest'
     }
