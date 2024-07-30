@@ -2,13 +2,13 @@ from flask import Flask
 
 app = Flask(__name__)
 
-try:
-    with open("scores.txt", 'r') as file:
-        score = file.read()
-except Exception:
-    score = "Error: 404"
 @app.route("/")
 def hello_world():
+    try:
+        with open("scores.txt", 'r') as file:
+            score = file.read()
+    except Exception:
+        score = "Error: 404"
     return (f"""
     <html>
         <head>
@@ -19,8 +19,6 @@ def hello_world():
             <div id="score"> {score} </div>
         </body>
     </html>
-
-
     """)
 
 if __name__ == '__main__':
