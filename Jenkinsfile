@@ -1,9 +1,8 @@
 pipeline {
     agent any
     environment {
-		IMAGE_DOCKER_NAME = 'main_score'
-        IMAGE_NAME = 'amenbrakat/main_score'
-        IMAGE_TAG = 'latest'
+		IMAGE_NAME = 'main_score'
+        IMAGE_NAME_TAG = 'amenbrakat/main_score'
     }
     stages {
         stage('Clean UP') {
@@ -76,8 +75,8 @@ pipeline {
                     def imageTag = "${env.BUILD_NUMBER}"
                     
                     // Tag and push the Docker image with the new build number
-                    bat "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${imageTag}"
-                    bat "docker push ${IMAGE_NAME}:${imageTag}"
+                    bat "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME_TAG}:${imageTag}"
+                    bat "docker push ${IMAGE_NAME_TAG}:${imageTag}"
                 }
             }
         }
