@@ -45,11 +45,20 @@ pipeline {
                 }
             }
         }
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     dir('World-Of-Games') {
-                        bat "docker-compose up --build -d"
+                        bat "docker build -t ${IMAGE_NAME_TAG}:${IMAGE_TAG} ."
+                    }
+                }
+            }
+        }
+        stage('Docker Compose Up') {
+            steps {
+                script {
+                    dir('World-Of-Games') {
+                        bat "docker-compose up -d"
                     }
                 }
             }
@@ -61,7 +70,7 @@ pipeline {
                 }
             }
         }
-        stage('Finalize') {
+        stage('Docker Compose Down') {
             steps {
                 dir('World-Of-Games') {
                     bat "docker-compose down"
@@ -71,11 +80,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def imageTag = "${env.IMAGE_TAG}"
-                    
                     // Tag and push the Docker image with the new build number
-                    bat "docker tag ${IMAGE_NAME}:${imageTag} ${IMAGE_NAME_TAG}:${imageTag}"
-                    bat "docker push ${IMAGE_NAME_TAG}:${imageTag}"
+                    bat "docker push ${IMAGE_NAME_TAG}:${IMAGE_TAG}"
                 }
             }
         }
