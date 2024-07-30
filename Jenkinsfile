@@ -44,11 +44,13 @@ pipeline {
                 }
             }
         }
-        stage('Docker') {
+        stage('Docker Build') {
             steps {
                 script {
                     dir('World-Of-Games') {
-                        bat "docker-compose up --build -d"
+                        withEnv(["IMAGE_TAG=${env.BUILD_NUMBER}"]) {
+                            bat "docker-compose up --build -d"
+                        }
                     }
                 }
             }
@@ -73,7 +75,7 @@ pipeline {
                     def imageTag = "${env.BUILD_NUMBER}"
                     
                     // Tag and push the Docker image with the new build number
-                    bat "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:${imageTag}"
+                    bat "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${imageTag}"
                     bat "docker push ${IMAGE_NAME}:${imageTag}"
                 }
             }
