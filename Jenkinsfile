@@ -3,7 +3,6 @@ pipeline {
     environment {
         IMAGE_NAME = 'main_score'
         IMAGE_NAME_TAG = 'amenbrakat/main_score'
-        IMAGE_TAG = ''
     }
     stages {
         stage('Clean UP') {
@@ -50,9 +49,7 @@ pipeline {
             steps {
                 script {
                     dir('World-Of-Games') {
-                        withEnv(["IMAGE_TAG=${env.IMAGE_TAG}"]) {
-                            bat "docker-compose up --build -d"
-                        }
+                        bat "docker-compose up --build -d"
                     }
                 }
             }
