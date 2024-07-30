@@ -40,7 +40,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('World-Of-Games') {
-                    bat "pip install -r requirements.txt"
+                    bat "pip install --upgrade -r requirements.txt"
                 }
             }
         }
