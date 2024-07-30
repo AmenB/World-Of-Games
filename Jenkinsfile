@@ -1,8 +1,9 @@
 pipeline {
     agent any
     environment {
-		IMAGE_NAME = 'main_score'
+        IMAGE_NAME = 'main_score'
         IMAGE_NAME_TAG = 'amenbrakat/main_score'
+        IMAGE_TAG = ''
     }
     stages {
         stage('Clean UP') {
@@ -34,6 +35,7 @@ pipeline {
                     
                     // Set the new build number as an environment variable for use in Docker tag
                     env.BUILD_NUMBER = newBuildNumber.toString()
+                    env.IMAGE_TAG = newBuildNumber.toString()
                 }
             }
         }
@@ -48,7 +50,7 @@ pipeline {
             steps {
                 script {
                     dir('World-Of-Games') {
-                        withEnv(["IMAGE_TAG=${env.BUILD_NUMBER}"]) {
+                        withEnv(["IMAGE_TAG=${env.IMAGE_TAG}"]) {
                             bat "docker-compose up --build -d"
                         }
                     }
@@ -72,7 +74,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def imageTag = "${env.BUILD_NUMBER}"
+                    def imageTag = "${env.IMAGE_TAG}"
                     
                     // Tag and push the Docker image with the new build number
                     bat "docker tag ${IMAGE_NAME}:${imageTag} ${IMAGE_NAME_TAG}:${imageTag}"
