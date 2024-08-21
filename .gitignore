@@ -2,4 +2,4 @@
 .venv/
 __pycache__/
 myenv/
-games/__pycache__/memory_game.cpython-312.pyc
+*.pyc
