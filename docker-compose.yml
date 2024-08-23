@@ -1,9 +1,31 @@
 version: '3.8'
 
 services:
-  flask-app:
-    image: amenbrakat/main_score:${IMAGE_TAG}
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
     ports:
-      - "8777:5000"
+      - "3306:3306"
+    networks:
+      - my_network
     volumes:
-      - "./scores.txt:/scores.txt"
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+
+  flask:
+    build:
+      context: .
+      dockerfile: dockerfile_flask
+    container_name: myflask
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
