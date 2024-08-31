@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Database connection configuration
 db_config = {
-    'host': 'mysql-container',  # Use the name of the MySQL container
-    'user': 'root',  # MySQL username
-    'password': 'root',  # MySQL password
-    'database': 'db'  # Database name (ensure this is correct)
+    'host': 'mysql-container',  # Connect to localhost
+    'user': 'root',
+    'password': 'root',
+    'database': 'db'
 }
 
 @app.route("/")
@@ -19,15 +19,18 @@ def hello_world():
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        # Execute a query to get the score
-        cursor.execute("SELECT Name, Score FROM score LIMIT 1;")
-        result = cursor.fetchone()
+        # Execute a query to get all users and their scores
+        cursor.execute("SELECT Name, Score FROM score;")
+        results = cursor.fetchall()
 
-        if result:
-            name, score = result
-            score_display = f"{name}: {score}"
+        if results:
+            # Prepare the display of all users and scores
+            score_display = "<ul>"
+            for name, score in results:
+                score_display += f"<li>{name}: {score}</li>"
+            score_display += "</ul>"
         else:
-            score_display = "No score found."
+            score_display = "No scores found."
 
         # Close the cursor and connection
         cursor.close()
@@ -41,7 +44,7 @@ def hello_world():
             <title>Score Game</title>
         </head>
         <body>
-            <h1>The score is:</h1>
+            <h1>All Scores:</h1>
             <div id="score"> {score_display} </div>
         </body>
     </html>
