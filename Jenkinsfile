@@ -18,20 +18,21 @@ pipeline {
         stage('Read and Increment Build Number') {
             steps {
                 script {
+                    bat "python World-Of-Games/increment_version.py"
                     def versionsFile = 'World-Of-Games/version.txt'
-                    
+
                     // Read the current build number
                     def currentBuildNumber = 0
                     if (fileExists(versionsFile)) {
                         currentBuildNumber = readFile(versionsFile).trim().toInteger()
                     }
-                    
+
                     // Increment the build number
                     def newBuildNumber = currentBuildNumber + 1
-                    
+
                     // Write the new build number back to the file
                     writeFile file: versionsFile, text: "${newBuildNumber}"
-                    
+
                     // Set the new build number as an environment variable for use in Docker tag
                     env.BUILD_NUMBER = newBuildNumber.toString()
                     env.IMAGE_TAG = newBuildNumber.toString()
@@ -45,11 +46,11 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
+        stage('Docker Compose Build') {
             steps {
                 script {
                     dir('World-Of-Games') {
-                        bat "docker build -t ${IMAGE_NAME_TAG}:${IMAGE_TAG} ."
+                        bat "docker-compose build"
                     }
                 }
             }
@@ -60,6 +61,18 @@ pipeline {
                     dir('World-Of-Games') {
                         bat "docker-compose up -d"
                     }
+                }
+            }
+        }
+        stage('Docker Tagging') {
+            steps {
+                script {
+                    def flaskTag = "${IMAGE_NAME_TAG}:flask"
+                    def mysqlTag = "${IMAGE_NAME_TAG}:mysql-custom"
+
+                    // Tag Docker images
+                    bat "docker tag wog-flask ${flaskTag}"
+                    bat "docker tag mysql ${mysqlTag}"
                 }
             }
         }
@@ -77,11 +90,15 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+        stage('Push Docker Images') {
             steps {
                 script {
-                    // Tag and push the Docker image with the new build number
-                    bat "docker push ${IMAGE_NAME_TAG}:${IMAGE_TAG}"
+                    def flaskTag = "${IMAGE_NAME_TAG}:flask"
+                    def mysqlTag = "${IMAGE_NAME_TAG}:mysql-custom"
+
+                    // Push Docker images
+                    bat "docker push ${flaskTag}"
+                    bat "docker push ${mysqlTag}"
                 }
             }
         }
