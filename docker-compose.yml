@@ -20,7 +20,7 @@ services:
       dockerfile: dockerfile_flask
     container_name: myflask
     ports:
-      - "5000:5000"
+      - "8777:5000"
     depends_on:
       - mysql
     networks:
