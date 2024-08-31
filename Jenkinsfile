@@ -71,7 +71,7 @@ pipeline {
                     def mysqlTag = "${IMAGE_NAME_TAG}:mysql-custom"
 
                     // Tag Docker images
-                    bat "docker tag wog-flask ${flaskTag}"
+                    bat "docker tag world-of-games-flask ${flaskTag}"
                     bat "docker tag mysql ${mysqlTag}"
                 }
             }
