@@ -79,6 +79,7 @@ pipeline {
         stage('E2E') {
             steps {
                 dir('World-Of-Games') {
+                    sleep(time: 5, unit: 'SECONDS')
                     bat "python e2e.py"
                 }
             }
