@@ -2,3 +2,4 @@ webdriver-manager
 flask
 selenium
 mysql-connector-python
+prometheus_client

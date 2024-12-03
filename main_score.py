@@ -1,12 +1,16 @@
 from flask import Flask
+from prometheus_client import start_http_server, Summary, generate_latest, CONTENT_TYPE_LATEST
 import mysql.connector
 from mysql.connector import Error
 
 app = Flask(__name__)
 
+# Start Prometheus metrics server on a separate port (e.g., 5001)
+start_http_server(5001)
+
 # Database connection configuration
 db_config = {
-    'host': 'mysql-container',  # Connect to localhost
+    'host': 'mysql-container',
     'user': 'root',
     'password': 'root',
     'database': 'db'
@@ -49,6 +53,11 @@ def hello_world():
         </body>
     </html>
     """)
+
+@app.route("/metrics")
+def metrics():
+    # Generate and return the latest metrics for Prometheus
+    return generate_latest(), 200, {'Content-Type': CONTENT_TYPE_LATEST}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
