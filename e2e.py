@@ -14,7 +14,7 @@ def test_scores_service():
     driver_chrome = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
-        driver_chrome.get("http://127.0.0.1:8777/")
+        driver_chrome.get("http://127.0.0.1:5000/")
         score_element = driver_chrome.find_element(By.ID, "score")
         score_text = score_element.text  # Get the text of the element
 
