@@ -67,12 +67,16 @@ pipeline {
         stage('Docker Tagging') {
             steps {
                 script {
-                    def flaskTag = "${IMAGE_NAME_TAG}:flask"
-                    def mysqlTag = "${IMAGE_NAME_TAG}:mysql-custom"
+                    def flaskTag = "${IMAGE_NAME_TAG}:myflask"
+                    def mysqlTag = "${IMAGE_NAME_TAG}:mysqlcontainer"
+                    def prometheus = "${IMAGE_NAME_TAG}:prometheus"
+                    def grafana = "${IMAGE_NAME_TAG}:grafana"
 
                     // Tag Docker images
                     bat "docker tag world-of-games-flask ${flaskTag}"
                     bat "docker tag mysql ${mysqlTag}"
+                    bat "docker tag prom/prometheus ${prometheus}"
+                    bat "docker tag grafana/grafana ${grafana}"
                 }
             }
         }
@@ -94,12 +98,16 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
-                    def flaskTag = "${IMAGE_NAME_TAG}:flask"
-                    def mysqlTag = "${IMAGE_NAME_TAG}:mysql-custom"
+                    def flaskTag = "${IMAGE_NAME_TAG}:myflask"
+                    def mysqlTag = "${IMAGE_NAME_TAG}:mysqlcontainer"
+                    def prometheus = "${IMAGE_NAME_TAG}:prometheus"
+                    def grafana = "${IMAGE_NAME_TAG}:grafana"
 
                     // Push Docker images
                     bat "docker push ${flaskTag}"
                     bat "docker push ${mysqlTag}"
+                    bat "docker push ${prometheus}"
+                    bat "docker push ${grafana}"
                 }
             }
         }
